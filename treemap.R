@@ -107,11 +107,12 @@ p <- treemap(
   type = "index",
   palette = "Set2",
   bg.labels = c("white"),
+  title = 'Total Wages in the First Quarter of 2020, by Industry',
   align.labels = list(c("center", "center"),
                       c("right", "bottom"))
 )
 
-inter <- d3tree2(p, rootname = "General")
-inter
+inter <- d3tree2(p, rootname = "All")
+# inter
 
-htmlwidgets::saveWidget(inter, "./outputs/treemap.html")
+htmlwidgets::saveWidget(inter, here::here("outputs/treemap.html"), title = 'Total Wages in the First Quarter of 2020, by Industry')
