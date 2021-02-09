@@ -1,0 +1,12 @@
+name: covid-industry-exploration-tool
+title: covid-industry-exploration-tool
+username:
+account: connorrothschild
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3548080
+bundleId: 4158471
+url: https://connorrothschild.shinyapps.io/covid-industry-exploration-tool/
+when: 1611943323.8463
+asMultiple: FALSE
+asStatic: FALSE
