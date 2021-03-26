@@ -1,5 +1,5 @@
 library(tidyverse)
-# library(cr)
+library(cr)
 
 q1 <- readr::read_csv("./data/harris_q1_qcew.csv") %>%
   filter(own_code == 5, ## Private only
@@ -8,7 +8,7 @@ q2 <- readr::read_csv("./data/harris_q2_qcew.csv") %>%
   filter(own_code == 5,
          nchar(industry_code) == 4)
 
-# set_cr_theme()
+set_cr_theme(font = 'IBM Plex Sans')
 
 q1_q2 <- left_join(q1, q2, by = 'industry_code', suffix = c('_Q1', '_Q2'))
 lookup <- readr::read_csv("./data/industry-titles-csv.csv")
