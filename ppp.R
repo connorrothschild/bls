@@ -1,4 +1,4 @@
-df <- readxl::read_excel("ppp_survey.xlsx")
+df <- readxl::read_excel(here::here("data/ppp_survey.xlsx"))
 
 # Which of the following best describes Covid-19 pandemic’s impact on your organization?
 table(df$CovidImpact)
