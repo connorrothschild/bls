@@ -7,5 +7,3 @@
 data/whd_whisard.csv
 
 shiny/data/*
-
-*.Rproj
