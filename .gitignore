@@ -3,6 +3,9 @@
 .RData
 .Ruserdata
 
-data/*
+# Too large for version control
+data/whd_whisard.csv
 
 shiny/data/*
+
+*.Rproj

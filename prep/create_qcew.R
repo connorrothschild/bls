@@ -1,14 +1,21 @@
 library(tidyverse)
 library(plotly)
-library(cr)
+
 source(here::here('prep/create_industry_lookup.R'))
 
-q1 <- readr::read_csv("./data/harris_q1_qcew.csv") %>%
+q1_raw <- readr::read_csv("https://data.bls.gov/cew/data/api/2020/1/area/48201.csv")
+readr::write_csv(q1_raw, here::here('data/harris_q1_qcew.csv'))
+
+q2_raw <- readr::read_csv("https://data.bls.gov/cew/data/api/2020/2/area/48201.csv")
+readr::write_csv(q2_raw, here::here('data/harris_q2_qcew.csv'))
+
+q1 <- readr::read_csv(here::here('data/harris_q1_qcew.csv')) %>%
   filter(own_code == 5,
          nchar(industry_code) == 4) ## 4 digit industry
-q2 <- readr::read_csv("./data/harris_q2_qcew.csv") %>%
+
+q2 <- readr::read_csv(here::here('data/harris_q2_qcew.csv')) %>%
   filter(own_code == 5,
-         nchar(industry_code) == 4)
+         nchar(industry_code) == 4) ## 4 digit industry
 
 q1_q2_raw <- left_join(q1, q2, by = 'industry_code', suffix = c('_Q1', '_Q2'))
 

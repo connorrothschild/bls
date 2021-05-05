@@ -1,15 +1,14 @@
 library(shiny)
 library(shinydashboard)
 library(tidyverse)
-library(cr)
 
 lookup <-
-    readr::read_csv(here::here("data/industry-titles-csv.csv")) %>%
+    readr::read_csv(here::here("data/industry-titles.csv")) %>%
     filter(nchar(industry_code) == 4) %>%
     pull(industry_code)
 
 names(lookup) <-
-    readr::read_csv(here::here("data/industry-titles-csv.csv")) %>%
+    readr::read_csv(here::here("data/industry-titles.csv")) %>%
     filter(nchar(industry_code) == 4) %>%
     mutate(industry_title = str_replace(industry_title, 'NAICS ', '')) %>%
     pull(industry_title)

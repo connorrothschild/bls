@@ -1,7 +1,7 @@
 library(tidyverse)
 
 qcew <- readr::read_csv("./data/harris_q1_qcew.csv")
-lookup <- readr::read_csv("./data/industry-titles-csv.csv")
+lookup <- readr::read_csv("./data/industry-titles.csv")
 
 joined <- left_join(qcew, lookup, by = "industry_code") %>%
   relocate(industry_title, .after = "industry_code")

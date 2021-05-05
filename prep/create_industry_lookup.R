@@ -1,6 +1,6 @@
 ### CREATE BASIC LOOKUP
 ###  https://www.bls.gov/cew/classifications/industry/industry-titles.htm
-lookup <- readr::read_csv("./data/industry-titles-csv.csv") %>%
+lookup <- readr::read_csv("./data/industry-titles.csv") %>%
   mutate(industry_title = str_replace_all(industry_title, "NAICS", ""),
          industry_title = str_replace_all(industry_title, '[[:digit:]]+', ""),
          industry_title = trimws(industry_title)) %>%

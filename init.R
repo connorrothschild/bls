@@ -1,0 +1,17 @@
+install.packages("pacman")
+pacman::p_load(
+  tidyverse,
+  readr,
+  plotly,
+  shiny,
+  shinydashboard,
+  ggplot2,
+  reactable,
+  gtsummary,
+  here,
+  stringr,
+  lubridate,
+  scales,
+  forcats,
+  glue
+)

@@ -11,7 +11,7 @@ q2 <- readr::read_csv("./data/harris_q2_qcew.csv") %>%
 set_cr_theme(font = 'IBM Plex Sans')
 
 q1_q2 <- left_join(q1, q2, by = 'industry_code', suffix = c('_Q1', '_Q2'))
-lookup <- readr::read_csv("./data/industry-titles-csv.csv")
+lookup <- readr::read_csv("./data/industry-titles.csv")
 
 joined <- left_join(q1_q2, lookup, by = "industry_code") %>%
   relocate(industry_title, .after = "industry_code") %>%

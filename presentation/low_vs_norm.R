@@ -1,3 +1,14 @@
+library(tidyverse)
+library(plotly)
+
+source(here::here(here::here('utils/theme.R')))
+source(here::here(here::here('utils/functions.R')))
+
+set_bls_theme(font = 'IBM Plex Sans')
+
+source(here::here('analysis/qcew.R'))
+source(here::here('prep/enforcement.R'))
+
 outliers_removed <-
   wage_and_emp %>%
   filter(
@@ -15,9 +26,6 @@ outliers_removed <-
     emp_diff != -1,
     avg_emplvl_Q1 > 100
   )
-
-library(cr)
-set_cr_theme()
 
 quantile(outliers_removed$avg_wkly_wage_Q1, probs = seq(0, 1, .1))
 quantile(outliers_removed$avg_wkly_wage_Q1)

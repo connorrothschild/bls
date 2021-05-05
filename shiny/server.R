@@ -1,9 +1,11 @@
 library(shiny)
 library(shinydashboard)
 library(tidyverse)
-library(cr)
 
-set_cr_theme()
+source(here::here(here::here('utils/theme.R')))
+source(here::here(here::here('utils/functions.R')))
+
+set_bls_theme()
 
 q1 <- readr::read_csv(here::here("data/harris_q1_qcew.csv")) %>%
     filter(own_code == 5, ## Private only
@@ -15,7 +17,7 @@ q2 <- readr::read_csv(here::here("data/harris_q2_qcew.csv")) %>%
 q1_q2 <-
     left_join(q1, q2, by = 'industry_code', suffix = c('_Q1', '_Q2'))
 lookup <-
-    readr::read_csv(here::here("data/industry-titles-csv.csv")) %>%
+    readr::read_csv(here::here("data/industry-titles.csv")) %>%
     filter(nchar(industry_code) == 4) %>%
     mutate(industry_title = str_replace(industry_title, 'NAICS ', ''))
 
@@ -29,7 +31,6 @@ joined <- left_join(q1_q2, lookup, by = "industry_code") %>%
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-
     title_str <- reactive({
         ind <- lookup %>%
             filter(industry_code == input$code) %>%
@@ -111,10 +112,12 @@ shinyServer(function(input, output) {
         })
 
     output$emp_pct_change <- renderValueBox({
-        valueBox(value = emp_pct_change_val(),
-                 subtitle = 'Percent Change in Employment (Q1-Q6)',
-                 icon = icon("briefcase", lib = "font-awesome"),
-                 color = "light-blue")
+        valueBox(
+            value = emp_pct_change_val(),
+            subtitle = 'Percent Change in Employment (Q1-Q6)',
+            icon = icon("briefcase", lib = "font-awesome"),
+            color = "light-blue"
+        )
     })
 
     ### WAGES
@@ -175,10 +178,12 @@ shinyServer(function(input, output) {
         })
 
     output$wage_pct_change <- renderValueBox({
-        valueBox(value = wage_pct_change_val(),
-                 subtitle = 'Percent Change in Wages',
-                 icon = icon("dollar-sign", lib = "font-awesome"),
-                 color = "light-blue")
+        valueBox(
+            value = wage_pct_change_val(),
+            subtitle = 'Percent Change in Wages',
+            icon = icon("dollar-sign", lib = "font-awesome"),
+            color = "light-blue"
+        )
     })
 
     #### NUMBER OF EMPLOYEES
@@ -192,9 +197,11 @@ shinyServer(function(input, output) {
         })
 
     output$emp_count <- renderValueBox({
-        valueBox(value = emp_val(),
-                 subtitle = 'Number of workers, June 2020',
-                 icon = icon("hashtag", lib = "font-awesome"),
-                 color = "light-blue")
+        valueBox(
+            value = emp_val(),
+            subtitle = 'Number of workers, June 2020',
+            icon = icon("hashtag", lib = "font-awesome"),
+            color = "light-blue"
+        )
     })
 })

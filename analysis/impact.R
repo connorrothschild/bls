@@ -1,9 +1,12 @@
 library(tidyverse)
 library(plotly)
-library(cr)
-set_cr_theme(font = 'IBM Plex Sans')
 
-source(here::here('prep/create_q1_q2.R'))
+source(here::here(here::here('utils/theme.R')))
+source(here::here(here::here('utils/functions.R')))
+
+set_bls_theme(font = 'IBM Plex Sans')
+
+source(here::here('prep/create_qcew.R'))
 
 g <- wage_and_emp %>%
   mutate(pretty_emp_level = scales::comma(avg_emplvl_Q1, accuracy = 1),
@@ -23,10 +26,6 @@ g <- wage_and_emp %>%
   scale_x_continuous(labels = scales::percent_format()) +
   scale_y_continuous(labels = scales::percent_format()) +
   drop_axis() +
-  # annotate(geom = 'label', x = -.5, y = -.5, label = 'Wages & employment decreased') +
-  # annotate(geom = 'label', x = .5, y = .5, label = 'Wages & employment increased') +
-  # annotate(geom = 'label', x = -.5, y = .5, label = 'Wages up, employment down') +
-  # annotate(geom = 'label', x = .5,  y = -.5, label = 'Wages down, employment up') +
   labs(x = '% change in employment, Q1 to Q2',
        y = '% change in wages, Q1 to Q2',
        # color = 'Difference in differences',
@@ -215,3 +214,4 @@ emp_loss_data %>%
        title = 'Difference between employment levels in Q1 and Q2 2020',
        subtitle = 'Top 20 industries with greatest (percentage) losses',
        caption = "\nNote: Only includes industries that have greater than 100 employees in Houston.")
+
