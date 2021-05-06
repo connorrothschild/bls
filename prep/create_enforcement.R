@@ -1,10 +1,4 @@
 library(tidyverse)
-library(plotly)
-
-source(here::here(here::here('utils/theme.R')))
-source(here::here(here::here('utils/functions.R')))
-
-set_bls_theme(font = 'IBM Plex Sans')
 
 ## Download from WHD Data catalog https://enforcedata.dol.gov/views/data_summary.php
 enforcement_zip <- tempfile()

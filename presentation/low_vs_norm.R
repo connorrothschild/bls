@@ -4,10 +4,10 @@ library(plotly)
 source(here::here(here::here('utils/theme.R')))
 source(here::here(here::here('utils/functions.R')))
 
-set_bls_theme(font = 'IBM Plex Sans')
+set_bls_theme()
 
-source(here::here('analysis/qcew.R'))
-source(here::here('prep/enforcement.R'))
+source(here::here('analysis/impact.R'))
+source(here::here('analysis/enforcement.R'))
 
 outliers_removed <-
   wage_and_emp %>%
@@ -33,6 +33,7 @@ quantile(outliers_removed$avg_wkly_wage_Q1)
 outliers_removed %>%
   summarise(mean(emp_diff), mean(wage_diff))
 
+## Here, we can define different thresholds for 'low-wage'
 below_avg <- outliers_removed %>% filter(avg_wkly_wage_Q1 <= 600)
 above_avg <- outliers_removed %>% filter(avg_wkly_wage_Q1 > 600)
 
@@ -93,28 +94,3 @@ outliers_removed %>%
        caption = '\nNote: Only includes industries that have greater than 100 employees in Houston') +
   theme(legend.position = 'top',
         legend.direction = 'horizontal')
-
-
-outliers_removed %>%
-  ggplot(aes(x = avg_wkly_wage_Q1, y = wage_diff, size = avg_emplvl_Q1, fill = 'blue'), show.legend = FALSE) +
-  geom_smooth(fill = '#cecece80', show.legend = FALSE) +
-  geom_point(color = 'white', pch = 21, show.legend = FALSE) +
-  scale_y_continuous(labels = scales::percent_format()) +
-  scale_x_continuous(labels = scales::dollar_format()) +
-  labs(x = 'Q1 weekly wage',
-       y = '% change in wages, Q1-Q2',
-       title = 'Changes in wages between Q1 and Q2, organized by Q1 average wage',
-       subtitle = 'Each point is an industry; point size represents employment size',
-       caption = '\nNote: Only includes industries that have greater than 100 employees in Houston')
-
-outliers_removed %>%
-  ggplot(aes(x = avg_wkly_wage_Q1, y = emp_diff, size = avg_emplvl_Q1, fill = 'blue'), show.legend = FALSE) +
-  geom_smooth(fill = '#cecece80', show.legend = FALSE) +
-  geom_point(color = 'white', pch = 21, show.legend = FALSE) +
-  scale_y_continuous(labels = scales::percent_format()) +
-  scale_x_continuous(labels = scales::dollar_format()) +
-  labs(x = 'Q1 weekly wage',
-       y = '% change in employment, Q1-Q2',
-       title = 'Changes in employment between Q1 and Q2, organized by Q1 average wage',
-       subtitle = 'Each point is an industry; point size represents employment size',
-       caption = '\nNote: Only includes industries that have greater than 100 employees in Houston')

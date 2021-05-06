@@ -1,3 +1,5 @@
+bls_blue <- '#012956'
+
 bls_theme <- function (base_size = 11,
           base_family = "Lato",
           base_line_size = 0.5,
@@ -183,7 +185,7 @@ bls_theme <- function (base_size = 11,
   )
 }
 
-set_bls_theme <- function (font = NULL, color = '#012956') {
+set_bls_theme <- function (font = NULL, color = bls_blue) {
   if (!is.null(font)) {
     ggplot2::theme_set(bls_theme(base_family = font))
     ggplot2::theme_update(text = ggplot2::element_text(family = font))

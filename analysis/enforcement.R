@@ -4,14 +4,15 @@ library(plotly)
 source(here::here(here::here('utils/theme.R')))
 source(here::here(here::here('utils/functions.R')))
 
-set_bls_theme(font = 'IBM Plex Sans')
+set_bls_theme()
 
 source(here::here('prep/create_enforcement.R'))
 
 max_year <- 2021
 min_year <- 2015
 
-## NUMBER OF INVESTIGATIONS PER ESTABLISHMENT
+## Begin enforcement priorities - where has WHD focused attention in recent years?
+# Number of investigations carried out per industry
 investigations <- houston_enforcement %>%
   filter(lubridate::year(findings_end_date) %in% c(min_year:max_year)) %>%
   count(industry_code, name = 'num') %>%
@@ -46,22 +47,24 @@ houston_enforcement %>%
     subtitle = 'In Houston, Texas'
   )
 
-# houston_enforcement %>%
-#   filter(lubridate::year(findings_end_date) %in% c(min_year:max_year))%>%
-#   group_by(industry_title) %>%
-#   summarise(sum = sum(bw_atp_amt)) %>%
-#   ungroup() %>%
-#   arrange(desc(sum)) %>% slice(1:20) %>%
-#   mutate(industry_title = fct_reorder(industry_title, sum)) %>%
-#   ggplot(aes(x = industry_title, y = sum)) +
-#   geom_col() +
-#   coord_flip() +
-#   fix_bars(labels = scales::dollar_format()) +
-#   labs(title = 'Highest violation industries',
-#        subtitle = 'Measured by sum of backwages paid, min_year-max_year',
-#        y = element_blank(),
-#        x = element_blank())
+# Backwages paid
+houston_enforcement %>%
+  filter(lubridate::year(findings_end_date) %in% c(min_year:max_year))%>%
+  group_by(industry_title) %>%
+  summarise(sum = sum(bw_atp_amt)) %>%
+  ungroup() %>%
+  arrange(desc(sum)) %>% slice(1:20) %>%
+  mutate(industry_title = fct_reorder(industry_title, sum)) %>%
+  ggplot(aes(x = industry_title, y = sum)) +
+  geom_col() +
+  coord_flip() +
+  fix_bars(labels = scales::dollar_format()) +
+  labs(title = 'Highest violation industries',
+       subtitle = glue::glue('Measured by sum of backwages paid, {min_year}-{max_year}'),
+       y = element_blank(),
+       x = element_blank())
 
+# Number of investigations
 houston_enforcement %>%
   filter(lubridate::year(findings_end_date) %in% c(min_year:max_year)) %>%
   group_by(industry_title) %>%
@@ -78,3 +81,4 @@ houston_enforcement %>%
     y = 'Number of investigations',
     x = element_blank()
   )
+
