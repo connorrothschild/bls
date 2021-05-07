@@ -66,7 +66,7 @@ tbl <- suspect %>%
 
 tbl
 
-htmlwidgets::saveWidget(widget = tbl, file = 'suspect.html')
+# htmlwidgets::saveWidget(widget = tbl, file = 'suspect.html')
 
 q1_q2 %>%
   mutate(suspect = ifelse(industry_code %in% suspect$industry_code, "Suspect", 'Not suspect')) %>%
