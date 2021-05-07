@@ -2,7 +2,7 @@
 
 ## Wage and Hour Division / Rice University Social Policy Analysis Capstone
 
-Prepared by [Connor Rothschild](www.connorrothschild.com)
+Prepared by Connor Rothschild
 
 This repository includes the code necessary to replicate the quantitative analyses done for Rice University's SOPA 400/401 research capstone.
 
